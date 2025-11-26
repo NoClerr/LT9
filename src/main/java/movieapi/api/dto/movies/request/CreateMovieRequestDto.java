@@ -1,4 +1,4 @@
-package movieapi.api.dto.movies.requestdto;
+package movieapi.api.dto.movies.request;
 
 
 import lombok.AllArgsConstructor;

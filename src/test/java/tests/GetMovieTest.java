@@ -2,7 +2,7 @@ package tests;
 
 import io.qameta.allure.Allure;
 import io.restassured.response.Response;
-import movieapi.api.dto.movies.responsedto.GetMovieResponseDto;
+import movieapi.api.dto.movies.response.GetMovieResponseDto;
 import movieapi.api.steps.MovieApiSteps;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ public class GetMovieTest {
     @DisplayName("GET /movies/{id} — получение несущетсвующего фильма")
     void getMovieById_notFound() {
         long NotMovieId = 999999999;
-        Response response = apiSteps.getMovieIdRaw(NotMovieId);
+        Response response = apiSteps.getMovieByInvalidId(NotMovieId);
         assertThat(response.getStatusCode()).isEqualTo(404);
     }
 
@@ -42,7 +42,7 @@ public class GetMovieTest {
     @DisplayName("GET /movies/{id} — получние фильма при отррицательном id")
     void getMovieById_badRequest() {
         long badId = -1;
-        Response response = apiSteps.getMovieIdRaw(badId);
+        Response response = apiSteps.getMovieByInvalidId(badId);
         assertThat(response.getStatusCode()).isEqualTo(404);
     }
 

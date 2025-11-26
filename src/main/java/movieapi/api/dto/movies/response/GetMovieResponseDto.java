@@ -1,4 +1,4 @@
-package movieapi.api.dto.movies.responsedto;
+package movieapi.api.dto.movies.response;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

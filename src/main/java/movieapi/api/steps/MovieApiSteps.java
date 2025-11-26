@@ -3,8 +3,8 @@ package movieapi.api.steps;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import movieapi.api.client.MovieClient;
-import movieapi.api.dto.movies.requestdto.CreateMovieRequestDto;
-import movieapi.api.dto.movies.responsedto.GetMovieResponseDto;
+import movieapi.api.dto.movies.request.CreateMovieRequestDto;
+import movieapi.api.dto.movies.response.GetMovieResponseDto;
 
 public class MovieApiSteps {
 
@@ -16,18 +16,18 @@ public class MovieApiSteps {
     }
 
     @Step("Получаем фильм по несуществующеему ID = {id}")
-    public Response getMovieIdRaw(long id) {
-        return client.getMovieByIdBroken(id);
+    public Response getMovieByInvalidId(long id) {
+        return client.getMovieByIdInvalid(id);
     }
 
     @Step("Создаем фильм")
-    public GetMovieResponseDto createMovie(String token, CreateMovieRequestDto request) {
-        return client.createMovie(token, request);
+    public GetMovieResponseDto createMovieSuccess(String token, CreateMovieRequestDto request) {
+        return client.createMovieSuccess(token, request);
     }
 
     @Step("Создаем фильм без авторизации")
-    public Response createMovieNotAuth(CreateMovieRequestDto request) {
-        return client.createMovieBroken(request);
+    public Response createMovieWithoutToken(CreateMovieRequestDto request) {
+        return client.createMovieWithoutToken(request);
     }
 
     @Step("Удаляем фильм по id = {id}")
@@ -35,19 +35,14 @@ public class MovieApiSteps {
         return client.deleteMovie(token, id);
     }
 
-/*    @Step("Удаляем фильм без авторизации")
-    public Response deleteMovieNotAuth(long id) {
-        return client.deleteMovie("", id);
-    }*/
-
     @Step("Редактируем фильм")
     public GetMovieResponseDto patchMovie(String token, long id, CreateMovieRequestDto request) {
         return client.patchMovie(token, id, request);
     }
 
     @Step("Редактируем фильм без авторизации")
-    public Response patchMovieNotAuth(long id, CreateMovieRequestDto request) {
-        return client.patchMovieBroken(id, request);
+    public Response patchMovieWithoutAuth(long id, CreateMovieRequestDto request) {
+        return client.patchMovieWithoutAuth(id, request);
     }
 
 }

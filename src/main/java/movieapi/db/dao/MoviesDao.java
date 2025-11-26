@@ -11,10 +11,4 @@ public interface MoviesDao {
     @Json
     @SqlQuery("SELECT to_jsonb(m) FROM movies m WHERE id = :id")
     Movie getMovieById(@Bind("id") long id);
-
-    @SqlQuery("SELECT COUNT(*) FROM movies WHERE id = :id")
-    int countMovieById(@Bind("id") long id);
-
-    @SqlUpdate("DELETE FROM movies WHERE od = :id")
-    int deleteMovie(@Bind("id") long id);
 }

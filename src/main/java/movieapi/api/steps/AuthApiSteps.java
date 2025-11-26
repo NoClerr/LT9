@@ -2,7 +2,7 @@ package movieapi.api.steps;
 
 import io.qameta.allure.Step;
 import movieapi.api.client.AuthClient;
-import movieapi.api.dto.auth.requestdto.LoginRequestDto;
+import movieapi.api.dto.auth.request.LoginRequestDto;
 
 public class AuthApiSteps {
 
@@ -10,8 +10,8 @@ public class AuthApiSteps {
 
 
     @Step("Получаем токен")
-    public String loginGiveToken(String email, String password) {
+    public String loginAndGetToken(String email, String password) {
         LoginRequestDto request = new LoginRequestDto(email, password);
-        return client.loginGiveToken(request);
+        return client.login(request).getAccessToken();
     }
 }

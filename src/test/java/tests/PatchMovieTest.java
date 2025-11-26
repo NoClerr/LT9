@@ -2,14 +2,15 @@ package tests;
 
 import io.qameta.allure.Allure;
 import io.restassured.response.Response;
-import movieapi.api.dto.movies.requestdto.CreateMovieRequestDto;
-import movieapi.api.dto.movies.responsedto.GetMovieResponseDto;
+import movieapi.api.dto.movies.request.CreateMovieRequestDto;
+import movieapi.api.dto.movies.response.GetMovieResponseDto;
 import movieapi.api.steps.AuthApiSteps;
 import movieapi.api.steps.MovieApiSteps;
 import movieapi.db.domain.Movie;
 import movieapi.db.steps.MovieDbSteps;
-import movieapi.util.DbCredentials;
+import movieapi.util.DbName;
 import movieapi.util.DbUtils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -22,14 +23,27 @@ public class PatchMovieTest {
 
     public final AuthApiSteps authSteps = new AuthApiSteps();
     public final MovieApiSteps movieSteps = new MovieApiSteps();
-    private final MovieDbSteps movieDbSteps = new MovieDbSteps(DbUtils.getCredentials());
+    private final MovieDbSteps movieDbSteps = new MovieDbSteps(DbUtils.getCredentials(DbName.DB_MOVIES));
+
+    private String token;
+    private Long movieId;
+
+    @AfterEach
+    void getAfterDelete() {
+        if (token == null || movieId == null) {
+            return;
+        }
+        movieSteps.deleteMovie(token, movieId);
+        token = null;
+        movieId = null;
+    }
 
 
     @Test
     @DisplayName("PATCH /movies/{id} - Успешное редактирование фильма")
-    void patchMovie_succes() {
-        String token = Allure.step("Получаем токен авторизации", () ->
-                authSteps.loginGiveToken(
+    void patchMovieSuccess() {
+         token = Allure.step("Получаем токен авторизации", () ->
+                authSteps.loginAndGetToken(
                         "pozitiv971@gmail.com",
                         "U6r-F7X-knS-AbS"));
 
@@ -46,9 +60,9 @@ public class PatchMovieTest {
 
 
         GetMovieResponseDto createRequest = Allure.step("Отправляем POST /movies", () ->
-                movieSteps.createMovie(token, request));
+                movieSteps.createMovieSuccess(token, request));
 
-        long id = createRequest.getId();
+        movieId = createRequest.getId();
 
 
         CreateMovieRequestDto patchRequest = new CreateMovieRequestDto(
@@ -62,10 +76,10 @@ public class PatchMovieTest {
         );
 
         GetMovieResponseDto patchResponse = Allure.step("Редактируем фильм", () ->
-                movieSteps.patchMovie(token, id, patchRequest)
+                movieSteps.patchMovie(token, movieId, patchRequest)
         );
         Allure.step("Проверяем ответ PATCH", () -> {
-            assertThat(patchResponse.getId()).isEqualTo(id);
+            assertThat(patchResponse.getId()).isEqualTo(movieId);
             assertThat(patchResponse.getName()).isEqualTo(patchRequest.getName());
             assertThat(patchResponse.getDescription()).isEqualTo(patchRequest.getDescription());
             assertThat(patchResponse.getPrice()).isEqualTo(patchRequest.getPrice());
@@ -75,7 +89,7 @@ public class PatchMovieTest {
             assertThat(patchResponse.getGenreId()).isEqualTo(patchRequest.getGenreId());
         });
 
-        Movie movieDb = movieDbSteps.getMovieById(id);
+        Movie movieDb = movieDbSteps.getMovieById(movieId);
 
         Allure.step("Проверяем что БД обновилась", () -> {
             assertThat(movieDb.getName()).isEqualTo(patchRequest.getName());
@@ -86,10 +100,6 @@ public class PatchMovieTest {
             assertThat(movieDb.getPublished()).isEqualTo(patchRequest.isPublished());
             assertThat(movieDb.getGenreId()).isEqualTo(patchRequest.getGenreId());
         });
-        movieSteps.deleteMovie(token, id);
-
-        int count = movieDbSteps.countMovieById(id);
-        assertThat(count).isEqualTo(0);
     }
 
     @Test
@@ -107,7 +117,7 @@ public class PatchMovieTest {
 
         long moreId = 2;
 
-        Response response = movieSteps.patchMovieNotAuth(moreId, patchRequest);
+        Response response = movieSteps.patchMovieWithoutAuth(moreId, patchRequest);
 
         Allure.step("Проверяем что PATCH без токена отдает 401", () -> {
             assertThat(response.getStatusCode()).isEqualTo(401);

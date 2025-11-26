@@ -27,7 +27,7 @@ public class CinescopeSpecs {
                 .build();
     }
 
-    public static ResponseSpecification createdSpecs() {
+    public static ResponseSpecification successCreationSpecs() {
         return new ResponseSpecBuilder()
                 .expectStatusCode(201)
                 .build();

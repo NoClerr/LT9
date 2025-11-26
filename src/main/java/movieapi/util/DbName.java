@@ -6,8 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum DbName {
-    MOVIES("movies");
+    DB_MOVIES("db_movies");
 
-    private final String value;
+    private final String name;
 }
-

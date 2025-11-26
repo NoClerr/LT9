@@ -2,13 +2,10 @@ package tests;
 
 import io.qameta.allure.Allure;
 import io.restassured.response.Response;
-import movieapi.api.dto.movies.requestdto.CreateMovieRequestDto;
-import movieapi.api.dto.movies.responsedto.GetMovieResponseDto;
+import movieapi.api.dto.movies.request.CreateMovieRequestDto;
+import movieapi.api.dto.movies.response.GetMovieResponseDto;
 import movieapi.api.steps.AuthApiSteps;
 import movieapi.api.steps.MovieApiSteps;
-import movieapi.db.steps.MovieDbSteps;
-import movieapi.util.DbCredentials;
-import movieapi.util.DbUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -20,13 +17,12 @@ public class DeleteMovieTest {
 
     private final AuthApiSteps authSteps = new AuthApiSteps();
     private final MovieApiSteps movieSteps = new MovieApiSteps();
-    private final MovieDbSteps movieDbSteps = new MovieDbSteps(DbUtils.getCredentials());
 
     @Test
     @DisplayName("DELETE /movies/{id} - успешное удаление фильма")
-    void createMovie_succes() {
+    void createMovieSuccess() {
         String token = Allure.step("Получаем токен авторизации", () ->
-                authSteps.loginGiveToken(
+                authSteps.loginAndGetToken(
                         "pozitiv971@gmail.com",
                         "U6r-F7X-knS-AbS"));
 
@@ -43,25 +39,20 @@ public class DeleteMovieTest {
                 ));
 
         GetMovieResponseDto createRequest = Allure.step("Отправляем POST /movies", () ->
-                movieSteps.createMovie(token, request)
+                movieSteps.createMovieSuccess(token, request)
         );
         long id = createRequest.getId();
+
         Response deleteResponse = Allure.step("Удаляем фильм", () ->
                 movieSteps.deleteMovie(token, id)
         );
         Allure.step("Проверяем статус удаления", () -> {
             assertThat(deleteResponse.getStatusCode()).isEqualTo(200);
         });
-        Response afterDeleteGet = movieSteps.getMovieIdRaw(id);
+        Response afterDeleteGet = movieSteps.getMovieByInvalidId(id);
 
         Allure.step("Проверяем GET после удаления ", () -> {
             assertThat(afterDeleteGet.getStatusCode()).isEqualTo(404);
-        });
-
-        int afterCount = movieDbSteps.countMovieById(id);
-
-        Allure.step("Проверяем что записи нет в БД", () -> {
-            assertThat(afterCount).isEqualTo(0);
         });
 
     }

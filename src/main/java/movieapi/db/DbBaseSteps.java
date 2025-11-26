@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import movieapi.util.DbCredentials;
 import org.jdbi.v3.core.Jdbi;
-import org.jdbi.v3.core.spi.JdbiPlugin;
 import org.jdbi.v3.jackson2.Jackson2Config;
 import org.jdbi.v3.jackson2.Jackson2Plugin;
+import org.jdbi.v3.postgres.PostgresPlugin;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 public abstract class DbBaseSteps {
@@ -41,9 +41,6 @@ public abstract class DbBaseSteps {
         mapper.registerModule(new JavaTimeModule());
 
         dbClient.getConfig(Jackson2Config.class).setMapper(mapper);
-    }
-
-    private class PostgresPlugin implements JdbiPlugin {
     }
 }
 

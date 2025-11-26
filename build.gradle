@@ -32,8 +32,6 @@ dependencies {
 
     testImplementation 'io.qameta.allure:allure-junit5:2.24.0'
 
-    implementation 'org.jdbi:jdbi3-core:3.45.0'
-    implementation 'org.jdbi:jdbi3-sqlobject:3.45.0'
     implementation 'org.postgresql:postgresql:42.7.2'
 }
 
@@ -56,12 +54,4 @@ allure {
             }
         }
     }
-}
-
-tasks.named("downloadAllure") {
-    enabled = false
-}
-
-tasks.named("allureServe") {
-    enabled = false
 }

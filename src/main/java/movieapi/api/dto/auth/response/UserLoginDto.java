@@ -1,4 +1,4 @@
-package movieapi.api.dto.auth.responsedto;
+package movieapi.api.dto.auth.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

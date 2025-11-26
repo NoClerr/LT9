@@ -16,9 +16,4 @@ public class MovieDbSteps extends DbBaseSteps {
     public Movie getMovieById(long id) {
         return dbClient.withExtension(MoviesDao.class, dao -> dao.getMovieById(id));
     }
-
-    @Step("Считаем количество фильмов в БД по id={id}")
-    public int countMovieById(long id) {
-        return dbClient.withExtension(MoviesDao.class, dao -> dao.countMovieById(id));
-    }
 }
