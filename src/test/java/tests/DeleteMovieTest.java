@@ -38,10 +38,8 @@ public class DeleteMovieTest {
                         1L
                 ));
 
-        GetMovieResponseDto createRequest = Allure.step("Отправляем POST /movies", () ->
-                movieSteps.createMovieSuccess(token, request)
-        );
-        long id = createRequest.getId();
+        GetMovieResponseDto createResponse = movieSteps.createMovieSuccess(token, request);
+        long id = createResponse.getId();
 
         Response deleteResponse = Allure.step("Удаляем фильм", () ->
                 movieSteps.deleteMovie(token, id)

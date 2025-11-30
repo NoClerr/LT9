@@ -75,18 +75,16 @@ public class PatchMovieTest {
                 1L
         );
 
-        GetMovieResponseDto patchResponse = Allure.step("Редактируем фильм", () ->
-                movieSteps.patchMovie(token, movieId, patchRequest)
-        );
+        GetMovieResponseDto createResponse = movieSteps.patchMovie(token, movieId, patchRequest);
         Allure.step("Проверяем ответ PATCH", () -> {
-            assertThat(patchResponse.getId()).isEqualTo(movieId);
-            assertThat(patchResponse.getName()).isEqualTo(patchRequest.getName());
-            assertThat(patchResponse.getDescription()).isEqualTo(patchRequest.getDescription());
-            assertThat(patchResponse.getPrice()).isEqualTo(patchRequest.getPrice());
-            assertThat(patchResponse.getLocation()).isEqualTo(patchRequest.getLocation());
-            assertThat(patchResponse.getImageUrl()).isEqualTo(patchRequest.getImageUrl());
-            assertThat(patchResponse.getPublished()).isEqualTo(patchRequest.isPublished());
-            assertThat(patchResponse.getGenreId()).isEqualTo(patchRequest.getGenreId());
+            assertThat(createResponse.getId()).isEqualTo(movieId);
+            assertThat(createResponse.getName()).isEqualTo(patchRequest.getName());
+            assertThat(createResponse.getDescription()).isEqualTo(patchRequest.getDescription());
+            assertThat(createResponse.getPrice()).isEqualTo(patchRequest.getPrice());
+            assertThat(createResponse.getLocation()).isEqualTo(patchRequest.getLocation());
+            assertThat(createResponse.getImageUrl()).isEqualTo(patchRequest.getImageUrl());
+            assertThat(createResponse.getPublished()).isEqualTo(patchRequest.isPublished());
+            assertThat(createResponse.getGenreId()).isEqualTo(patchRequest.getGenreId());
         });
 
         Movie movieDb = movieDbSteps.getMovieById(movieId);

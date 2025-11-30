@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 public class MovieClient {
 
     private static final String MOVIE_ID = "/movies/{id}";
-    private static final String Movies = "/movies";
+    private static final String MOVIES = "/movies";
 
     public Response getMovieByIdInvalid(long id) {
         return given()
@@ -34,7 +34,7 @@ public class MovieClient {
                 .header("Authorization", "Bearer " + token)
                 .body(request)
                 .when()
-                .post(Movies);
+                .post(MOVIES);
     }
 
     public GetMovieResponseDto createMovieSuccess(String token, CreateMovieRequestDto request) {

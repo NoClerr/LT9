@@ -4,7 +4,6 @@ import movieapi.db.domain.Movie;
 import org.jdbi.v3.json.Json;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
-import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 public interface MoviesDao {
 
