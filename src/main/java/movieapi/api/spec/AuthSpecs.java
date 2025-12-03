@@ -7,12 +7,13 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import movieapi.config.ConfigProvider;
 
 public class AuthSpecs {
 
     public static RequestSpecification authRequestSpecs() {
         return new RequestSpecBuilder()
-                .setBaseUri("https://auth.cinescope.t-qa.ru")
+                .setBaseUri(ConfigProvider.getAuthBaseUrl())
                 .addHeader("Content-Type", "application/json")
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)

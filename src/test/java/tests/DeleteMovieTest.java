@@ -6,10 +6,9 @@ import movieapi.api.dto.movies.request.CreateMovieRequestDto;
 import movieapi.api.dto.movies.response.GetMovieResponseDto;
 import movieapi.api.steps.AuthApiSteps;
 import movieapi.api.steps.MovieApiSteps;
+import apiTests.MovieTestData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -20,23 +19,13 @@ public class DeleteMovieTest {
 
     @Test
     @DisplayName("DELETE /movies/{id} - успешное удаление фильма")
-    void createMovieSuccess() {
-        String token = Allure.step("Получаем токен авторизации", () ->
-                authSteps.loginAndGetToken(
-                        "pozitiv971@gmail.com",
-                        "U6r-F7X-knS-AbS"));
+    void deleteMovieSuccess() {
+       String token = Allure.step("Получаем токен авторизации", () ->
+                authSteps.getToken());
 
 
         CreateMovieRequestDto request = Allure.step("Тело запроса для создания фильма", () ->
-                new CreateMovieRequestDto(
-                        "Фильм автотест под DELETE" + UUID.randomUUID(),
-                        "https://image.url",
-                        50,
-                        "Описание автотестового фильма под DELETE",
-                        "MSK",
-                        true,
-                        1L
-                ));
+                MovieTestData.movieDeleteRequest());
 
         GetMovieResponseDto createResponse = movieSteps.createMovieSuccess(token, request);
         long id = createResponse.getId();
