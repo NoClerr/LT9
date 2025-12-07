@@ -6,7 +6,7 @@ import movieapi.api.dto.movies.request.CreateMovieRequestDto;
 import movieapi.api.dto.movies.response.GetMovieResponseDto;
 import movieapi.api.steps.AuthApiSteps;
 import movieapi.api.steps.MovieApiSteps;
-import apiTests.MovieTestData;
+import movietestdata.MovieTestData;
 import movieapi.db.domain.Movie;
 import movieapi.db.steps.MovieDbSteps;
 import movieapi.util.DbName;
@@ -43,9 +43,7 @@ public class CreateMovieTest {
                 authSteps.getToken());
 
 
-        CreateMovieRequestDto request = Allure.step("Тело запроса для создания фильма", () ->
-                        MovieTestData.moviePostRequest());
-
+        CreateMovieRequestDto request = MovieTestData.moviePostRequest();
 
         GetMovieResponseDto createResponse = movieSteps.createMovieSuccess(token, request);
 
@@ -80,7 +78,7 @@ public class CreateMovieTest {
 
     @Test
     @DisplayName("POST /movies без авторизации")
-    public void createMovieWithoitToken() {
+    public void createMovieWithoutToken() {
 
         CreateMovieRequestDto request = Allure.step("Тело запроса для создания фильма", () ->
                 MovieTestData.moviePostRequestWithoitToken());

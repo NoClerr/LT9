@@ -6,7 +6,7 @@ import movieapi.api.dto.movies.request.CreateMovieRequestDto;
 import movieapi.api.dto.movies.response.GetMovieResponseDto;
 import movieapi.api.steps.AuthApiSteps;
 import movieapi.api.steps.MovieApiSteps;
-import apiTests.MovieTestData;
+import movietestdata.MovieTestData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

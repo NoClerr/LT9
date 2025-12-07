@@ -1,4 +1,4 @@
-package apiTests;
+package movietestdata;
 
 import movieapi.api.dto.movies.request.CreateMovieRequestDto;
 
