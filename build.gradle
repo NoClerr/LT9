@@ -9,6 +9,7 @@ plugins {
 repositories {
     mavenCentral()
 }
+
 publishing {
     publications {
         maven(MavenPublication) {
