@@ -9,20 +9,19 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import movieapi.config.ConfigProvider;
 
-public class AuthSpecs {
+public class ReviewSpecs {
 
-    public static RequestSpecification authRequestSpecs() {
+    public static RequestSpecification reviewRequestSpec(String token) {
         return new RequestSpecBuilder()
-                .setBaseUri(ConfigProvider.getAuthBaseUrl())
-                .addHeader("Content-Type", "application/json")
+                .setBaseUri(ConfigProvider.getApiBaseUrl())
+                .addHeader("Authorization", "Bearer " + token)
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssured())
                 .log(LogDetail.ALL)
                 .build();
     }
-
-    public static ResponseSpecification authSuccessSpec() {
+    public static ResponseSpecification deleteReviewSpec() {
         return new ResponseSpecBuilder()
                 .expectStatusCode(200)
                 .build();

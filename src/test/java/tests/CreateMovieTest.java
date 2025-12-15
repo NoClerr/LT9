@@ -6,6 +6,7 @@ import movieapi.api.dto.movies.request.CreateMovieRequestDto;
 import movieapi.api.dto.movies.response.GetMovieResponseDto;
 import movieapi.api.steps.AuthApiSteps;
 import movieapi.api.steps.MovieApiSteps;
+import movietestdata.MovieTestData;
 import movieapi.db.domain.Movie;
 import movieapi.db.steps.MovieDbSteps;
 import movieapi.util.DbName;
@@ -13,8 +14,6 @@ import movieapi.util.DbUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -41,22 +40,10 @@ public class CreateMovieTest {
     @DisplayName("POST /movies - успешное создание фильма")
     void createMovieSuccess() {
         token = Allure.step("Получаем токен авторизации", () ->
-                authSteps.loginAndGetToken(
-                        "pozitiv971@gmail.com",
-                        "U6r-F7X-knS-AbS"));
+                authSteps.getToken());
 
 
-        CreateMovieRequestDto request = Allure.step("Тело запроса для создания фильма", () ->
-                new CreateMovieRequestDto(
-                        "Фильм автотест " + UUID.randomUUID(),
-                        "https://image.url",
-                        200,
-                        "Описание автотестового фильма",
-                        "MSK",
-                        true,
-                        1L
-                ));
-
+        CreateMovieRequestDto request = MovieTestData.moviePostRequest();
 
         GetMovieResponseDto createResponse = movieSteps.createMovieSuccess(token, request);
 
@@ -91,17 +78,10 @@ public class CreateMovieTest {
 
     @Test
     @DisplayName("POST /movies без авторизации")
-    public void createMovieWithoitToken() {
+    public void createMovieWithoutToken() {
 
-        CreateMovieRequestDto request = new CreateMovieRequestDto(
-                "Негативный фильм " + UUID.randomUUID(),
-                "https://image.url",
-                200,
-                "Описание",
-                "MSK",
-                true,
-                1L
-        );
+        CreateMovieRequestDto request = Allure.step("Тело запроса для создания фильма", () ->
+                MovieTestData.moviePostRequestWithoitToken());
 
         Response response = movieSteps.createMovieWithoutToken(request);
         assertThat(response.getStatusCode()).isEqualTo(401);

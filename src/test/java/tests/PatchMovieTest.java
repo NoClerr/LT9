@@ -6,6 +6,7 @@ import movieapi.api.dto.movies.request.CreateMovieRequestDto;
 import movieapi.api.dto.movies.response.GetMovieResponseDto;
 import movieapi.api.steps.AuthApiSteps;
 import movieapi.api.steps.MovieApiSteps;
+import movietestdata.MovieTestData;
 import movieapi.db.domain.Movie;
 import movieapi.db.steps.MovieDbSteps;
 import movieapi.util.DbName;
@@ -13,8 +14,6 @@ import movieapi.util.DbUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -42,21 +41,11 @@ public class PatchMovieTest {
     @Test
     @DisplayName("PATCH /movies/{id} - Успешное редактирование фильма")
     void patchMovieSuccess() {
-         token = Allure.step("Получаем токен авторизации", () ->
-                authSteps.loginAndGetToken(
-                        "pozitiv971@gmail.com",
-                        "U6r-F7X-knS-AbS"));
+        token = Allure.step("Получаем токен авторизации", () ->
+                authSteps.getToken());
 
         CreateMovieRequestDto request = Allure.step("Тело запроса для создания фильма", () ->
-                new CreateMovieRequestDto(
-                        "Фильм автотест под PATCH" + UUID.randomUUID(),
-                        "https://image.url",
-                        350,
-                        "Описание автотестового фильма под PATCH",
-                        "MSK",
-                        true,
-                        1L
-                ));
+                MovieTestData.moviePostRequestFromPatch());
 
 
         GetMovieResponseDto createRequest = Allure.step("Отправляем POST /movies", () ->
@@ -65,15 +54,8 @@ public class PatchMovieTest {
         movieId = createRequest.getId();
 
 
-        CreateMovieRequestDto patchRequest = new CreateMovieRequestDto(
-                "Автотест фильм после PATCH " + UUID.randomUUID(),
-                "https://new.image.url",
-                999,
-                "Обновлённое описание после PATCH",
-                "SPB",
-                false,
-                1L
-        );
+        CreateMovieRequestDto patchRequest = Allure.step("Тело запроса для создания фильма", () ->
+                MovieTestData.moviePatchRequest());
 
         GetMovieResponseDto createResponse = movieSteps.patchMovie(token, movieId, patchRequest);
         Allure.step("Проверяем ответ PATCH", () -> {
@@ -102,20 +84,13 @@ public class PatchMovieTest {
 
     @Test
     @DisplayName("PATCH /movies/{id} - Неуспешное редактирование фильма")
-    void patchMovie_notAuth() {
-        CreateMovieRequestDto patchRequest = new CreateMovieRequestDto(
-                "Автотест фильм PATCH без авторизации",
-                "https://image.url",
-                99,
-                "Описание фильма без авторизации",
-                "SPB",
-                true,
-                1L
-        );
+    void patchMovieWithoitToken() {
+        CreateMovieRequestDto request = Allure.step("Тело запроса для создания фильма ", () ->
+                MovieTestData.moviePatchRequestWithoitToken());
 
         long moreId = 2;
 
-        Response response = movieSteps.patchMovieWithoutAuth(moreId, patchRequest);
+        Response response = movieSteps.patchMovieWithoutAuth(moreId, request);
 
         Allure.step("Проверяем что PATCH без токена отдает 401", () -> {
             assertThat(response.getStatusCode()).isEqualTo(401);
