@@ -6,6 +6,7 @@ import movieapi.api.dto.movies.request.CreateMovieRequestDto;
 import movieapi.api.dto.movies.response.GetMovieResponseDto;
 import movieapi.api.steps.AuthApiSteps;
 import movieapi.api.steps.MovieApiSteps;
+import movieapi.api.steps.ReviewApiSteps;
 import movietestdata.MovieTestData;
 import movieapi.db.domain.Movie;
 import movieapi.db.steps.MovieDbSteps;
