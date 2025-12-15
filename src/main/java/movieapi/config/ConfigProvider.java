@@ -21,4 +21,7 @@ public class ConfigProvider {
     public static String getUserPassword() {
         return config.getString("auth.user.password");
     }
+    public static String getUserId() {
+        return config.getString("auth.user.id");
+    }
 }
