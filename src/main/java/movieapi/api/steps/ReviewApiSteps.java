@@ -16,9 +16,10 @@ public class ReviewApiSteps {
         Response resp = reviewClient.deleteReviewForMovie(movieId, userId, token);
         System.out.println("DELETE status = " + resp.statusCode());;
     }
-    @Step("Удаляем отзыв для фильма ")
-    public void deleteReviewForMovie(Long movieId,String userId) {
+    @Step("Удаляем отзыв текущего пользователя для фильма {movieId}")
+    public void deleteReviewForMovie(Long movieId) {
         String token = authApiSteps.getToken();
-        deleteReviewForMovie(movieId, userId, token);
+        String userId = ConfigProvider.getUserId(); // UUID строкой, добавь в ConfigProvider
+        reviewClient.deleteReviewForMovie(movieId, userId, token);
     }
 }
