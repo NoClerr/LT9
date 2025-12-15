@@ -14,7 +14,7 @@ public class ReviewClient {
                 .spec(reviewRequestSpec(token))
                 .pathParam("movieId", movieId)
 //                .queryParam("movieId", movieId)
-                .queryParam("userId", userId)
+                .pathParam("userId", userId)
                 .when()
                 .delete("/movies/{movieId}/reviews")
                 .then()
