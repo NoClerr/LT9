@@ -10,11 +10,11 @@ public class ReviewApiSteps {
     private final AuthApiSteps authApiSteps = new AuthApiSteps();
 
 
-    @Step("Удаляем отзыв пользователя {userId} для фильма {movieId} с уже известным токеном")
+    @Step("Удаляем отзыв для фильма с известным токеном")
     public void deleteReviewForMovie(Long movieId, String userId, String token) {
         reviewClient.deleteReviewForMovie(movieId, userId, token);
     }
-    @Step("Удаляем отзыв текущего пользователя для фильма {movieId}")
+    @Step("Удаляем отзыв для фильма ")
     public void deleteReviewForMovie(Long movieId) {
         String token = authApiSteps.getToken();
         String userId = ConfigProvider.getUserId();
