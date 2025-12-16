@@ -11,14 +11,8 @@ public class ReviewApiSteps {
     private final AuthApiSteps authApiSteps = new AuthApiSteps();
 
 
-    @Step("Удаляем отзыв для фильма с известным токеном")
-    public void deleteReviewForMovie(Long movieId, String userId, String token) {
-        Response resp = reviewClient.deleteReviewForMovie(movieId, userId, token);
-    }
-    @Step("Удаляем отзыв текущего пользователя для фильма {movieId}")
-    public void deleteReviewForMovie(Long movieId) {
-        String token = authApiSteps.getToken();
-        String userId = ConfigProvider.getUserId();
-        reviewClient.deleteReviewForMovie(movieId, userId, token);
+    @Step("Удаляем отзыв для фильма")
+    public Response deleteReviewForMovie(Long movieId, String userId, String token) {
+        return reviewClient.deleteReviewForMovie(movieId, userId, token);
     }
 }
