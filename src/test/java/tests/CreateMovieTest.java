@@ -25,7 +25,7 @@ public class CreateMovieTest {
     private final MovieDbSteps movieDbSteps = new MovieDbSteps(DbUtils.getCredentials(DbName.DB_MOVIES));
 
     private String token;
-    private Long createdMovieId;
+    private Long createdMovieId;;
 
     @AfterEach
     void getAfterDelete() {
@@ -36,6 +36,7 @@ public class CreateMovieTest {
         token = null;
         createdMovieId = null;
     }
+
 
     @Test
     @DisplayName("POST /movies - успешное создание фильма")

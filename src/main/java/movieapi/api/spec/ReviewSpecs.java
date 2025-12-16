@@ -21,7 +21,7 @@ public class ReviewSpecs {
                 .log(LogDetail.ALL)
                 .build();
     }
-    public static ResponseSpecification deleteReviewSpec() {
+    public static ResponseSpecification successReviewSpecs() {
         return new ResponseSpecBuilder()
                 .expectStatusCode(200)
                 .build();
