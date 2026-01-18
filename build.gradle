@@ -43,7 +43,7 @@ dependencies {
 
     testImplementation 'io.qameta.allure:allure-junit5:2.24.0'
 
-    implementation 'io.qameta.allure:allure-assertj:2.29.1'
+    testImplementation 'io.qameta.allure:allure-assertj:2.29.1'
 
     implementation 'org.postgresql:postgresql:42.7.2'
 }
