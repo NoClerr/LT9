@@ -1,5 +1,7 @@
+// Блок параметров для настройки запуска
 properties([
     parameters([
+        // Параметр для указания тегов тестов
         string(name: 'TAGS',
                defaultValue: 'smoke',
                description: 'Test tags to run: smoke, regress, api, etc.')
@@ -7,27 +9,32 @@ properties([
 ])
 
 pipeline {
-    agent any
+  agent any
+  options { skipDefaultCheckout(true) }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-                sh 'chmod +x gradlew'
-            }
-        }
+  parameters {
+    string(name: 'TAGS', defaultValue: 'smoke', description: 'smoke, regress, etc')
+  }
 
-        stage('Run Tests') {
-            steps {
-                sh "./gradlew clean test -Ptags='${params.TAGS}'"
-            }
-        }
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+        sh 'chmod +x gradlew'
+      }
     }
 
-    post {
-        always {
-            allure includeProperties: false,
-                   results: [[path: 'build/allure-results']]
-        }
+    stage('Run Tests') {
+      steps {
+        sh "./gradlew clean test --info --stacktrace -Ptags=${params.TAGS}"
+      }
     }
+  }
+
+  post {
+    always {
+      allure includeProperties: false,
+             results: [[path: 'build/allure-results']]
+    }
+  }
 }
