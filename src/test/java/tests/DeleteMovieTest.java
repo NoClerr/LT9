@@ -8,6 +8,7 @@ import movieapi.api.steps.AuthApiSteps;
 import movieapi.api.steps.MovieApiSteps;
 import movietestdata.MovieTestData;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -17,6 +18,7 @@ public class DeleteMovieTest {
     private final AuthApiSteps authSteps = new AuthApiSteps();
     private final MovieApiSteps movieSteps = new MovieApiSteps();
 
+    @Tag("smoke")
     @Test
     @DisplayName("DELETE /movies/{id} - успешное удаление фильма")
     void deleteMovieSuccess() {

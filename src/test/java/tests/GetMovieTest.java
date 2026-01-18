@@ -5,6 +5,7 @@ import io.restassured.response.Response;
 import movieapi.api.dto.movies.response.GetMovieResponseDto;
 import movieapi.api.steps.MovieApiSteps;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,6 +14,7 @@ public class GetMovieTest {
 
     private final MovieApiSteps apiSteps = new MovieApiSteps();
 
+    @Tag("smoke")
     @Test
     @DisplayName("GET /movies/{id} — успешное получение фильма")
     void getMovieById_success() {

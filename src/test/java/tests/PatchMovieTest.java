@@ -13,6 +13,7 @@ import movieapi.util.DbName;
 import movieapi.util.DbUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -38,6 +39,7 @@ public class PatchMovieTest {
     }
 
 
+    @Tag("smoke")
     @Test
     @DisplayName("PATCH /movies/{id} - Успешное редактирование фильма")
     void patchMovieSuccess() {
