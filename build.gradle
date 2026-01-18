@@ -39,9 +39,11 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.27.3'
     testImplementation 'org.hamcrest:hamcrest:2.2'
 
-    implementation 'io.qameta.allure:allure-rest-assured:2.24.0'
+    testImplementation 'io.qameta.allure:allure-rest-assured:2.24.0'
 
     testImplementation 'io.qameta.allure:allure-junit5:2.24.0'
+
+    testImplementation 'io.qameta.allure:allure-assertj:2.29.1'
 
     implementation 'org.postgresql:postgresql:42.7.2'
 }
