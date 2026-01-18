@@ -12,7 +12,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Run Tests') {
+        stage('Checkout') {
           steps {
             echo "JENKINSFILE MARKER: LT9/jenkins/Jenkinsfile v2"
             sh """
