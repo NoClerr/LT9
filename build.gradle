@@ -47,8 +47,16 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
-    finalizedBy allureServe
+
+    useJUnitPlatform(){
+        if (project.hasProperty("tags")) {
+            includeTags(project.property("tags") as String)
+        }
+    }
+    maxParallelForks = (project.findProperty("forks") ?: "3").toInteger()
+    systemProperties = systemProperties = [
+            'selenide.browser': 'chrome',
+    ]
 }
 
 allure {
