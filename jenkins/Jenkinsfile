@@ -12,15 +12,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
+        stage('Run Tests') {
+          steps {
             echo "JENKINSFILE MARKER: LT9/jenkins/Jenkinsfile v2"
-                sh "./gradlew clean test --info --stacktrace -Ptags=${params.TAGS}"
-                // Получаем код из репозитория
-                checkout scm
-                // Делаем gradlew исполняемым для Unix-систем
-                sh 'chmod +x gradlew'
-            }
+            sh """
+              chmod +x gradlew
+              ./gradlew clean test --info --stacktrace -Ptags=${params.TAGS}
+            """
+          }
         }
 
         stage('Run Tests') {
