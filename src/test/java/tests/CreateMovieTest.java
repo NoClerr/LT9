@@ -79,6 +79,7 @@ public class CreateMovieTest {
         });
     }
 
+    @Tag("smoke")
     @Test
     @DisplayName("POST /movies без авторизации")
     public void createMovieWithoutToken() {

@@ -1,0 +1,1 @@
+{"uuid":"09996241-d3de-4455-b4c9-546816f0849d","name":"POST /movies без авторизации","children":["add59331-7acc-4e00-afd1-9e5d23b7d3c8"],"befores":[],"afters":[{"name":"getAfterDelete","status":"passed","stage":"finished","steps":[],"attachments":[],"parameters":[],"start":1768747436113,"stop":1768747436113}],"start":1768747435704,"stop":1768747436116}

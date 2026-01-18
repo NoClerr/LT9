@@ -32,6 +32,7 @@ public class GetMovieTest {
         });
     }
 
+    @Tag("smoke")
     @Test
     @DisplayName("GET /movies/{id} — получение несущетсвующего фильма")
     void getMovieById_notFound() {
@@ -40,6 +41,7 @@ public class GetMovieTest {
         assertThat(response.getStatusCode()).isEqualTo(404);
     }
 
+    @Tag("smoke")
     @Test
     @DisplayName("GET /movies/{id} — получние фильма при отррицательном id")
     void getMovieById_badRequest() {

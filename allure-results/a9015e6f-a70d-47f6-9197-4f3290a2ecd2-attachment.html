@@ -1,0 +1,37 @@
+<div>POST to https://api.cinescope.krisqa.ru/movies</div>
+
+<h4>Body</h4>
+<div>
+    <pre class="preformated-text">
+{
+    &quot;name&quot;: &quot;Негативный фильм 2e37153d-d12b-4c44-aa9b-05603181fdd2&quot;,
+    &quot;imageUrl&quot;: &quot;https://image.url&quot;,
+    &quot;price&quot;: 200,
+    &quot;description&quot;: &quot;Описание&quot;,
+    &quot;location&quot;: &quot;MSK&quot;,
+    &quot;published&quot;: true,
+    &quot;genreId&quot;: 1
+}    </pre>
+</div>
+
+<h4>Headers</h4>
+<div>
+        <div>Authorization: Bearer null</div>
+        <div>Accept: application/json, application/javascript, text/javascript, text/json</div>
+        <div>Content-Type: application/json</div>
+</div>
+
+
+
+<h4>Curl</h4>
+<div>
+curl -v -X POST &#39;https://api.cinescope.krisqa.ru/movies&#39; -H &#39;Authorization: Bearer null&#39; -H &#39;Accept: application/json, application/javascript, text/javascript, text/json&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;name&quot;: &quot;Негативный фильм 2e37153d-d12b-4c44-aa9b-05603181fdd2&quot;,
+    &quot;imageUrl&quot;: &quot;https://image.url&quot;,
+    &quot;price&quot;: 200,
+    &quot;description&quot;: &quot;Описание&quot;,
+    &quot;location&quot;: &quot;MSK&quot;,
+    &quot;published&quot;: true,
+    &quot;genreId&quot;: 1
+}&#39;
+</div>

@@ -84,6 +84,8 @@ public class PatchMovieTest {
         });
     }
 
+
+    @Tag("smoke")
     @Test
     @DisplayName("PATCH /movies/{id} - Неуспешное редактирование фильма")
     void patchMovieWithoitToken() {
