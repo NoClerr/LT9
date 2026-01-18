@@ -48,7 +48,13 @@ dependencies {
 
 test {
 
-    failIfNoTests = true
+    afterSuite { desc, result ->
+        if (!desc.parent) { // root suite
+            if (result.testCount == 0) {
+                throw new GradleException("No tests were executed. Check tags filter: ${project.findProperty('tags')}")
+            }
+        }
+    }
 
 
     useJUnitPlatform(){
@@ -57,9 +63,8 @@ test {
         }
     }
     maxParallelForks = (project.findProperty("forks") ?: "3").toInteger()
-    systemProperties = systemProperties = [
-            'selenide.browser': 'chrome',
-    ]
+
+    systemProperties = [:]
 }
 
 allure {
